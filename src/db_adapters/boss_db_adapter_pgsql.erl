@@ -68,11 +68,11 @@ find(Conn, Id) when is_list(Id) ->
             {error, Reason}
     end.
 
-find(Conn, Type, Conditions, Max, Skip, Sort, SortOrder) when is_atom(Type), 
-                                  is_list(Conditions), 
-                                                              is_integer(Max) orelse Max =:= all, 
-                                  is_integer(Skip), 
-                                                              is_atom(Sort), 
+find(Conn, Type, Conditions, Max, Skip, Sort, SortOrder) when is_atom(Type),
+                                  is_list(Conditions),
+                                                              is_integer(Max) orelse Max =:= all,
+                                  is_integer(Skip),
+                                                              is_atom(Sort),
                                   is_atom(SortOrder) ->
     case boss_record_lib:ensure_loaded(Type) of
         true ->
@@ -92,7 +92,7 @@ find(Conn, Type, Conditions, Max, Skip, Sort, SortOrder) when is_atom(Type),
                 {error, Reason} ->
                     {error, Reason}
             end;
-        false -> 
+        false ->
         {error, {module_not_loaded, Type}}
     end.
 
@@ -217,7 +217,7 @@ maybe_populate_id_value(Record) ->
     KeyType  = boss_sql_lib:keytype(Record),
     maybe_populate_id_value(Record, KeyType).
 
-% unused -type keytype() ::uuid|id.
+% -type keytype() ::uuid|id.
 -spec(maybe_populate_id_value(tuple(), uuid|id) -> tuple()).
 maybe_populate_id_value(Record, uuid) ->
     Type = element(1, Record),
@@ -279,9 +279,9 @@ build_insert_query(Record) ->
     build_insert_sql(TableName, Attributes, Values, Params).
 
 
--spec(build_insert_sql(nonempty_string(), 
-               [nonempty_string(),...], 
-               [sql_param_value(),...], 
+-spec(build_insert_sql(nonempty_string(),
+               [nonempty_string(),...],
+               [sql_param_value(),...],
                [nonempty_string(),...]) ->
          {iolist(), [sql_param_value()]}).
 build_insert_sql(TableName, Attributes, Values, Params) ->
@@ -309,7 +309,7 @@ make_insert_attributes(Record, Type) ->
             ({A, V}, {Attrs, Vals}) ->
             DBColumn        = proplists:get_value(A, AttributeColumns),
             Value                   = make_value(Type, A, V),
-            {[DBColumn|Attrs], 
+            {[DBColumn|Attrs],
              [Value|Vals]}
                 end, {[], []}, Record:attributes()).
 
