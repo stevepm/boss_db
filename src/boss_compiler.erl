@@ -212,7 +212,7 @@ transform_tokens(TransformFun,Tokens) when is_function(TransformFun) ->
 parse_tokens(Tokens, FileName, Version) ->
     parse_tokens(Tokens, [], [], [], FileName, Version).
 
-parse_tokens([], _, FormAcc, ErrorAcc, _, Version) ->
+parse_tokens([], _, FormAcc, ErrorAcc, _, _Version) ->
     {lists:reverse(FormAcc), lists:reverse(ErrorAcc)};
 parse_tokens([{dot, _}=Token|Rest], TokenAcc, FormAcc, ErrorAcc, FileName, Version) ->
     case erl_parse:parse_form(lists:reverse([Token|TokenAcc])) of
